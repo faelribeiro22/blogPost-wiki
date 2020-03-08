@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+    web-app:
+        build:
+          context: ./client
+        volumes:
+          - /app/node_modules
+          - ./client:/app/client
+        ports:
+          - '3000:3000'
+        restart: on-failure
+        container_name: web-app
+
+    admin-post-api:
+        build:
+          context: ./server
+        ports:
+          - '3001:3001'
+        restart: on-failure
+        container_name: AdminPostAPI
+        volumes:
+          - /usr/app/server/node_modules 
+      # Inside the container, don't try to override this folder, just leave as is
+          - ./server:/app/server 
+      # Look at the server directory and copy everything into the app folder in the container
