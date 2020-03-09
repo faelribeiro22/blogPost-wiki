@@ -13,7 +13,7 @@ services:
         restart: on-failure
         container_name: web-app
 
-    admin-post-api:
+    server:
         build:
           context: ./server
         ports:
@@ -25,3 +25,11 @@ services:
       # Inside the container, don't try to override this folder, just leave as is
           - ./server:/app/server 
       # Look at the server directory and copy everything into the app folder in the container
+    
+    mongo:
+        image: mongo
+        ports:
+        - '27017:27017'
+        volumes:
+        - './data/db:/data/db'
+      
